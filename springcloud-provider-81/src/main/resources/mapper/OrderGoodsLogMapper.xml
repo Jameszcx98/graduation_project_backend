@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.dao.OrderGoodsLogDAO">
+
+    <resultMap id="orderGoodsLogMap" type="com.shu.model.OrderGoodsLog">
+        <id property="orderId" column="order_id"/>
+        <id property="orderStatus" column="order_status"/>
+        <id property="logTime" column="log_time"/>
+        <result property="goodsId" column="goods_id"/>
+    </resultMap>
+
+    <!--通过ID查询单个-->
+    <select id="findById" resultMap="orderGoodsLogMap">
+        SELECT goods_id,order_id,log_time,order_status FROM order_goods_log
+        WHERE order_id=#{id} and order_status=#{orderStatus} and log_time=#{logTime}
+    </select>
+
+    <!--分页查询-->
+    <select id="findByPage" resultMap="orderGoodsLogMap">
+        SELECT goods_id,order_id,log_time,order_status FROM order_goods_log
+    </select>
+
+    <!--新增-->
+    <insert id="insert">
+        INSERT INTO order_goods_log(goods_id,order_id,log_time,order_status)
+        VALUES (#{goodsId},#{orderId},#{logTime},#{orderStatus})
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        UPDATE order_goods_log SET order_id=#{orderId},log_time=#{logTime},order_status=#{orderStatus}
+        WHERE order_id=#{goodsId} and order_status=#{orderStatus} and log_time=#{logTime}
+    </update>
+
+    <!--通过ID删除单个-->
+    <delete id="deleteById">
+        DELETE FROM order_goods_log
+        WHERE order_id=#{id} and order_status=#{orderStatus} and log_time=#{logTime}
+    </delete>
+
+</mapper>

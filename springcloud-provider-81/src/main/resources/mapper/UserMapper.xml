@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.dao.UserDAO">
+
+    <resultMap id="userMap" type="com.shu.model.User">
+        <id property="userId" column="user_id"/>
+        <result property="username" column="user_name"/>
+        <result property="userEmail" column="user_email"/>
+        <result property="userMobile" column="user_mobile"/>
+        <result property="userMoney" column="user_money"/>
+        <result property="password" column="user_password"/>
+        <result property="createDate" column="user_reg_time"/>
+        <result property="wechatM1" column="wechat_m1"/>
+        <result property="wechatM2" column="wechat_m2"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <!--通过ID查询单个-->
+    <select id="findById" resultMap="userMap">
+        SELECT user_id,user_name,user_email,user_mobile,user_money,user_password,user_reg_time,wechat_m1,wechat_m2,status FROM user
+        WHERE user_id=#{id}
+    </select>
+
+    <select id="findByName" resultMap="userMap">
+        SELECT user_id,user_name,user_email,user_mobile,user_money,user_password,user_reg_time,wechat_m1,wechat_m2,status FROM user
+        WHERE user_name=#{name}
+    </select>
+
+    <select id="findByEmail" resultMap="userMap">
+        SELECT user_id,user_name,user_email,user_mobile,user_money,user_password,user_reg_time,wechat_m1,wechat_m2,status FROM user
+        WHERE user_email=#{email}
+    </select>
+
+    <!--分页查询-->
+    <select id="findByPage" resultMap="userMap">
+        SELECT user_id,user_name,user_email,user_mobile,user_money,user_password,user_reg_time,wechat_m1,wechat_m2,status FROM user
+    </select>
+
+    <!--新增-->
+    <insert id="insert">
+        INSERT INTO user(user_id,user_name,user_email,user_mobile,user_money,user_password,user_reg_time,wechat_m1,wechat_m2,status)
+        VALUES (#{userId},#{username},#{userEmail},#{userMobile},0,MD5(#{password}),#{createDate},#{wechatM1},#{wechatM2},#{status})
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        UPDATE user SET user_name=#{username},user_email=#{userEmail},user_mobile=#{userMobile},user_money=#{userMoney},user_reg_time=#{createDate},wechat_m1=#{wechatM1},wechat_m2=#{wechatM2},status=#{status}
+        WHERE user_id=#{userId}
+    </update>
+
+    <update id="updateP">
+        UPDATE user SET user_name=#{username},user_email=#{userEmail},user_mobile=#{userMobile},user_money=#{userMoney},user_password=MD5(#{password}),user_reg_time=#{createDate},wechat_m1=#{wechatM1},wechat_m2=#{wechatM2},status=#{status}
+        WHERE user_id=#{userId}
+    </update>
+
+    <!--通过ID删除单个-->
+    <delete id="deleteById">
+        DELETE FROM user
+        WHERE user_id=#{id}
+    </delete>
+
+
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.dao.UserOperationLogDAO">
+
+    <resultMap id="userOperationLogMap" type="com.shu.model.UserOperationLog">
+        <id property="orderId" column="order_id"/>
+        <id property="logType" column="log_type"/>
+        <result property="userId" column="user_id"/>
+        <result property="useMoney" column="use_money"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!--通过ID查询单个-->
+    <select id="findById" resultMap="userOperationLogMap">
+        SELECT user_id,order_id,use_money,create_time,log_type FROM user_operation_log
+        WHERE order_id=#{id}
+        order by `create_time` desc
+        limit 1
+    </select>
+
+    <!--分页查询-->
+    <select id="findByPage" resultMap="userOperationLogMap">
+        SELECT user_id,order_id,use_money,create_time,log_type FROM user_operation_log
+    </select>
+
+    <!--新增-->
+    <insert id="insert">
+        INSERT INTO user_operation_log(user_id,order_id,use_money,create_time,log_type)
+        VALUES (#{userId},#{orderId},#{useMoney},#{createTime},#{logType})
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        UPDATE user_operation_log SET order_id=#{orderId},use_money=#{useMoney},create_time=#{createTime},log_type=#{logType}
+        WHERE order_id=#{userId} and log_type=#{logType}
+    </update>
+
+    <!--通过ID删除单个-->
+    <delete id="deleteById">
+        DELETE FROM user_operation_log
+        WHERE order_id=#{id} and log_type=#{logType}
+    </delete>
+
+</mapper>

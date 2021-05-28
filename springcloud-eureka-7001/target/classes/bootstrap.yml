@@ -1,0 +1,25 @@
+#spring:
+#  cloud:
+#    config:
+#      name: config-eureka #从git中读取的资源名称，不需要后缀
+#      uri: http://localhost:3344 #服务器端连接github，客户端连接服务器端的端口
+#      profile: dev #选取哪一个生产环境
+#      default-label: main
+server:
+  port: 7001
+#spring的配置
+spring:
+  application:
+    name: springcloud-config-eureka
+  cloud:
+    config:
+      enabled: false
+#Eureka配置
+eureka:
+  instance:
+    hostname: localhost #Eureka服务端的实例名称  如http://localhost/....
+  client:
+    register-with-eureka: false #表示是否向eureka注册中心注册自己
+    fetch-registry: false #表示自己是注册中心
+    service_url: #与eureka交互的页面，监控页面
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

@@ -1,0 +1,40 @@
+server:
+  port: 82
+
+spring:
+  application:
+    name: springcloud-audioAndVideo
+##Eureka的配置，注册到哪里
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:7001/eureka/
+#  instance:
+#    instance-id: springcloud-audioAndVideo #实例id
+#  #info配置，监控信息配置
+#info:
+#  app.name: zcx-springcloud
+#  company.name: zcx.com
+
+rocketmq:
+  name-server: 47.116.142.93:9876
+  producer:
+    group: AVProduerGroup
+
+
+mq:
+  order:
+    consumer:
+      group:
+        name1: cancel_group
+        name2: file_group
+    topic1: orderTopic
+    topic2: fileTopic
+    tag:
+      cancel: order_cancel
+      operation: file_operation
+
+file:
+  upload:
+
+httpUrl: http://127.0.0.1:81/

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.dao.GoodsDAO">
+
+    <resultMap id="goodsMap" type="com.shu.model.Goods">
+        <id property="goodsId" column="goods_id"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="goodsDesc" column="goods_desc"/>
+        <result property="addTime" column="add_time"/>
+        <result property="goodsNumber" column="goods_number"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <!--通过ID查询单个-->
+    <select id="findById" resultMap="goodsMap">
+        SELECT goods_id,goods_name,goods_price,goods_number,goods_desc,add_time,remark FROM goods
+        WHERE goods_id=#{id}
+    </select>
+
+    <!--分页查询-->
+    <select id="findByPage" resultMap="goodsMap">
+        SELECT goods_id,goods_name,goods_price,goods_number,goods_desc,add_time,remark FROM goods
+    </select>
+
+    <!--新增-->
+    <insert id="insert">
+        INSERT INTO goods(goods_id,goods_name,goods_price,goods_number,goods_desc,add_time,remark)
+        VALUES (#{goodsId},#{goodsName},#{goodsPrice},#{goodsNumber},#{goodsDesc},#{addTime},0)
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        UPDATE goods SET goods_name=#{goodsName},goods_price=#{goodsPrice},goods_number=#{goodsNumber},goods_desc=#{goodsDesc},add_time=#{addTime},remark=remark+1
+        WHERE goods_id=#{goodsId} and remark=#{remark}
+    </update>
+
+    <!--通过ID删除单个-->
+    <delete id="deleteById">
+        DELETE FROM goods
+        WHERE goods_id=#{id}
+    </delete>
+
+</mapper>

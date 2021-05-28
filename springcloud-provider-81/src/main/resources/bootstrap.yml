@@ -1,0 +1,94 @@
+server:
+  port: 81
+
+mybatis:
+  #type-aliases-package: com.zcx.springcloud.pojo  # 起别名，mybatis自动扫描bean对象。在mapper文件中resultype不用再加完全限定名。
+  #config-location: classpath:mybatis/mybatis-config.xml #config的配置地址
+  mapper-locations: classpath:/mapper/*.xml #mapper的配置地址
+
+spring:
+  application:
+    name: springcloud-provider-dept
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/file_platform?useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 199898zhang
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+      enabled: true
+  jackson:
+    time-zone: Asia/Shanghai
+  cloud:
+    config:
+      enabled: false
+
+
+
+##Eureka的配置，注册到哪里
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:7001/eureka/
+#  instance:
+#    instance-id: springcloud-provider-dept-8001 #实例id
+#  #info配置，监控信息配置
+#info:
+#  app.name: zcx-springcloud
+#  company.name: zcx.com
+
+
+#Eureka的配置，注册到哪里
+eureka:
+  client:
+    service-url:
+      defaultZone: http://47.116.142.93:7001/eureka/
+  instance:
+    instance-id: springcloud-provider-dept-8001 #实例id
+  #info配置，监控信息配置
+info:
+  app.name: zcx-springcloud
+  company.name: zcx.com
+
+
+
+
+#mq:
+#  order:
+#    consumer:
+#      group:
+#        name1: cancel_groupr1
+#        name2: file_groupr1
+#    topic1: orderTopicr1
+#    topic2: fileTopicr1
+#    tag:
+#      cancel: order_cancelr1
+#      operation: file_operationr1
+#
+#file:
+#  upload: /Users/jameszhang/IdeaProjects/file-platform-backend/
+
+file:
+  upload: /usr/develop/project/file/
+  
+rocketmq:
+  name-server: 47.116.142.93:9876
+  producer:
+    group: orderProducerGroupr
+mq:
+  order:
+    consumer:
+      group:
+        name1: cancel_groupr
+        name2: file_groupr
+    topic1: orderTopicr
+    topic2: fileTopicr
+    tag:
+      cancel: order_cancelr
+      operation: file_operationr
+
+
+httpUrl: http://47.116.142.93:81/

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.dao.OrderDAO">
+
+    <resultMap id="orderMap" type="com.shu.model.Order">
+        <id property="orderId" column="order_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="payStatus" column="pay_status"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="goodsPrice" column="goods_price"/>
+        <result property="moneyPaid" column="money_paid"/>
+        <result property="addTime" column="add_time"/>
+        <result property="confirmTime" column="confirm_time"/>
+        <result property="payTime" column="pay_time"/>
+        <result property="file" column="file"/>
+        <result property="fileOperation" column="file_operation"/>
+        <result property="tag" column="tag"/>
+    </resultMap>
+
+    <!--通过ID查询单个-->
+    <select id="findById" resultMap="orderMap">
+        SELECT order_id,user_id,order_status,pay_status,goods_id,goods_price,money_paid,add_time,confirm_time,pay_time,file,file_operation,tag FROM `order`
+        WHERE order_id=#{orderId}
+    </select>
+
+
+    <!--通过ID查询单个-->
+    <select id="findByFile" resultMap="orderMap">
+        SELECT order_id,user_id,order_status,pay_status,goods_id,goods_price,money_paid,add_time,confirm_time,pay_time,file,file_operation,tag FROM `order`
+        WHERE file=#{file}
+        order by `add_time` desc
+        limit 1
+    </select>
+
+    <!--分页查询-->
+    <select id="findByPage" resultMap="orderMap">
+        SELECT order_id,user_id,order_status,pay_status,goods_id,goods_price,money_paid,add_time,confirm_time,pay_time,file,file_operation,tag FROM `order`
+        where user_id=#{userId} and order_status=1
+        order by `add_time` desc
+    </select>
+
+    <!--新增-->
+    <insert id="insert">
+        INSERT INTO `order`(order_id,user_id,order_status,pay_status,goods_id,goods_price,money_paid,add_time,confirm_time,pay_time,file,tag)
+        VALUES (#{orderId},#{userId},#{orderStatus},#{payStatus},#{goodsId},#{goodsPrice},#{moneyPaid},#{addTime},#{confirmTime},#{payTime},#{file},#{tag})
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        UPDATE `order` SET user_id=#{userId},order_status=#{orderStatus},pay_status=#{payStatus},goods_id=#{goodsId},goods_price=#{goodsPrice},money_paid=#{moneyPaid},add_time=#{addTime},confirm_time=#{confirmTime},pay_time=#{payTime},file=#{file},file_operation=#{fileOperation},tag=#{tag}
+        WHERE order_id=#{orderId}
+    </update>
+
+    <!--通过ID删除单个-->
+    <delete id="deleteById">
+        DELETE FROM `order`
+        WHERE order_id=#{orderId}
+    </delete>
+
+</mapper>

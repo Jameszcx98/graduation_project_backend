@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.dao.OrderPayDAO">
+
+    <resultMap id="orderPayMap" type="com.shu.model.OrderPay">
+        <id property="payId" column="pay_id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="payAmount" column="pay_amount"/>
+        <result property="paid" column="is_paid"/>
+    </resultMap>
+
+    <!--通过ID查询单个-->
+    <select id="findById" resultMap="orderPayMap">
+        SELECT pay_id,order_id,pay_amount,is_paid FROM order_pay
+        WHERE pay_id=#{id}
+    </select>
+
+    <!--分页查询-->
+    <select id="findByPage" resultMap="orderPayMap">
+        SELECT pay_id,order_id,pay_amount,is_paid FROM order_pay
+    </select>
+
+    <!--新增-->
+    <insert id="insert">
+        INSERT INTO order_pay(pay_id,order_id,pay_amount,is_paid)
+        VALUES (#{payId},#{orderId},#{payAmount},#{paid})
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        UPDATE order_pay SET order_id=#{orderId},pay_amount=#{payAmount},is_paid=#{paid}
+        WHERE pay_id=#{payId}
+    </update>
+
+    <!--通过ID删除单个-->
+    <delete id="deleteById">
+        DELETE FROM order_pay
+        WHERE pay_id=#{id}
+    </delete>
+
+</mapper>

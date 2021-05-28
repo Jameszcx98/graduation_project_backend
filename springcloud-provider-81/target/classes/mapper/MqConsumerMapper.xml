@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.dao.MqConsumerDAO">
+
+    <resultMap id="mqConsumerMap" type="com.shu.model.MqConsumer">
+        <id property="msgId" column="msg_id"/>
+        <result property="groupName" column="group_name"/>
+        <result property="msgTag" column="msg_tag"/>
+        <result property="msgKey" column="msg_key"/>
+        <result property="msgBody" column="msg_body"/>
+        <result property="consumerStatus" column="consumer_status"/>
+        <result property="consumerTimes" column="consumer_times"/>
+        <result property="consumerTime" column="consumer_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <!--通过ID查询单个-->
+    <select id="findById" resultMap="mqConsumerMap">
+        SELECT msg_id,group_name,msg_tag,msg_key,msg_body,consumer_status,consumer_times,consumer_time,remark FROM mq_consumer
+        WHERE msg_key=#{msg_key}
+    </select>
+
+    <!--分页查询-->
+    <select id="findByPage" resultMap="mqConsumerMap">
+        SELECT msg_id,group_name,msg_tag,msg_key,msg_body,consumer_status,consumer_times,consumer_time,remark FROM mq_consumer
+    </select>
+
+    <!--新增-->
+    <insert id="insert">
+        INSERT INTO mq_consumer(msg_id,group_name,msg_tag,msg_key,msg_body,consumer_status,consumer_times,consumer_time,remark)
+        VALUES (#{msgId},#{groupName},#{msgTag},#{msgKey},#{msgBody},#{consumerStatus},#{consumerTimes},#{consumerTime},0)
+    </insert>
+
+    <!--修改-->
+    <update id="update">
+        UPDATE mq_consumer SET group_name=#{groupName},msg_tag=#{msgTag},msg_key=#{msgKey},msg_body=#{msgBody},consumer_status=#{consumerStatus},consumer_times=#{consumerTimes},consumer_time=#{consumerTime},remark=remark+1
+        WHERE msg_id=#{msgId}
+    </update>
+
+    <!--通过ID删除单个-->
+    <delete id="deleteById">
+        DELETE FROM mq_consumer
+        WHERE msg_id=#{msgId}
+    </delete>
+
+</mapper>
