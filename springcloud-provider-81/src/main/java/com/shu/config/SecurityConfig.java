@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST,"/email").permitAll()
                 .antMatchers(HttpMethod.GET,"/activate").permitAll()
                 .antMatchers(HttpMethod.POST,"/").permitAll()
+                .antMatchers(HttpMethod.GET,"/goodss/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/toLogin").permitAll()
                 .anyRequest().fullyAuthenticated()
 //                .antMatchers("/**").hasRole("customer")
